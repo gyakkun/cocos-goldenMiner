@@ -4,7 +4,7 @@ USING_NS_CC;
 
 Scene* GameSence::createScene()
 {
-	return Scene::create();
+	return GameSence::create();
 }
 
 // on "init" you need to initialize your instance
@@ -27,6 +27,18 @@ bool GameSence::init()
 	Size visibleSize = Director::getInstance()->getVisibleSize();
 	Vec2 origin = Director::getInstance()->getVisibleOrigin();
 
+	auto bg_mining = Sprite::create("level-background-0.jpg");
+	bg_mining->setPosition(Vec2(visibleSize.width / 2 + origin.x, visibleSize.height / 2 + origin.y - 60));
+	this->addChild(bg_mining, 0);
+
+	//Add a mouse like the leg in menu scene
+
+	auto mouse = Sprite::createWithSpriteFrameName("miner-leg-0.png");
+	Animate* mouseAnimate = Animate::create(AnimationCache::getInstance()->getAnimation("mouseAnimation"));
+	mouse->runAction(RepeatForever::create(mouseAnimate));
+	mouse->setPosition(110 + origin.x, origin.y + 102);
+	this->addChild(mouse, 1);
+
 	return true;
 }
 
@@ -35,4 +47,8 @@ bool GameSence::onTouchBegan(Touch *touch, Event *unused_event) {
 	auto location = touch->getLocation();
 
 	return true;
+}
+
+void GameSence::shootMenuCallback(Ref* pSender) {
+	;
 }

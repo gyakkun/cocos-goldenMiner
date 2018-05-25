@@ -97,8 +97,11 @@ bool AppDelegate::applicationDidFinishLaunching() {
 
 	// load game resource
 	SpriteFrameCache::getInstance()->addSpriteFramesWithFile("general-sheet.plist");
+	SpriteFrameCache::getInstance()->addSpriteFramesWithFile("level-sheet.plist");
 	char totalFrames = 3;
 	char frameName[20];
+	
+	//leg animation in menu scene
 	Animation* legAnimation = Animation::create();
 
 	for (int i = 0; i < totalFrames; i++)
@@ -108,6 +111,17 @@ bool AppDelegate::applicationDidFinishLaunching() {
 	}
 	legAnimation->setDelayPerUnit(0.1);
 	AnimationCache::getInstance()->addAnimation(legAnimation, "legAnimation");
+
+	//mouse walking animation in game scene
+	Animation* mouseAnimation = Animation::create();
+	char mouseAnimationTotalFrames = 8;
+
+	for (int i = 0; i < mouseAnimationTotalFrames; i++) {
+		sprintf(frameName, "gem-mouse-%d.png", i);
+		mouseAnimation->addSpriteFrame(SpriteFrameCache::getInstance()->getSpriteFrameByName(frameName));
+	}
+	mouseAnimation->setDelayPerUnit(0.1);
+	AnimationCache::getInstance()->addAnimation(mouseAnimation, "mouseAnimation");
 
 	// create a scene. it's an autorelease object
     auto scene = MenuScene::createScene();

@@ -12,7 +12,7 @@ public:
 
 	virtual bool onTouchBegan(Touch *touch, Event *unused_event);
 
-	//virtual void shootMenuCallback(Ref* pSender);
+	virtual void shootMenuCallback(Ref* pSender);
 
 	CREATE_FUNC(GameSence);
 
