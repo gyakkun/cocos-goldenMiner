@@ -1,5 +1,6 @@
 #include "MenuScene.h"
 #include "SimpleAudioEngine.h"
+#include "GameScene.h"
 
 USING_NS_CC;
 
@@ -46,6 +47,24 @@ bool MenuScene::init()
 	leg->setPosition(110 + origin.x, origin.y + 102);
 	this->addChild(leg, 1);
 
+	auto gameTitle = Sprite::create("gold-miner-text.png");
+	gameTitle->setPosition(Vec2(visibleSize.width / 2 + origin.x, visibleSize.height + origin.y - 87));
+	this->addChild(gameTitle, 1);
+
+	auto startGold = Sprite::create("menu-start-gold.png");
+	startGold->setPosition(Vec2(640 + origin.x, 190 + origin.y));
+	this->addChild(startGold, 1);
+
+	auto jumpItem = MenuItemImage::create("start-0.png", "start-1.png", CC_CALLBACK_1(MenuScene::startMenuCallback, this));
+	auto startBtn = Menu::create(jumpItem, NULL);
+	startBtn->setPosition(Vec2(640 + origin.x, 190 + origin.y));
+	this->addChild(startBtn, 1);
+
     return true;
 }
 
+//Jump to Gamescene
+void MenuScene::startMenuCallback(cocos2d::Ref* pSender) {
+	auto gameScene = GameSence::createScene();
+	Director::getInstance()->replaceScene(gameScene);
+}
